@@ -19,6 +19,16 @@ posts = []
 
 
 def request_maker(url, headers=None, data=None, method=None):
+	"""
+		Universal method for sending requests. At now have only post method,
+		but can include other in the future
+
+	   :url: Request url
+       :param headers: Request headers
+       :param data: Request data
+       :param method: Request method
+       :return: Http Response
+    """
 	if method == 'post':
 		return requests.post(url=host+url, headers=headers, data=data)
 

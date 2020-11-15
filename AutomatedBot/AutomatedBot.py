@@ -17,10 +17,6 @@ users_credentials = {}
 login_credentials = {}
 posts = []
 
-headers = {
-	"Authorization": f'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA1NDUyNzQyLCJqdGkiOiJhOTM4NDg4ODM0MzI0ZWE3YTFjNTI1NTdmZDNkZGE2NSIsInVzZXJfaWQiOjJ9.PVUn0XULPA2r0UXj-6tlvgB0MsPvN8Wqb79-T1Nnjsc'
-}
-
 
 def request_maker(url, headers=None, data=None, method=None):
 	if method == 'post':
@@ -28,6 +24,10 @@ def request_maker(url, headers=None, data=None, method=None):
 
 
 def register_users(number_of_users):
+	"""
+		Method for register users with random data
+		:param number_of_users: maximal number of users witch need to be registered
+	"""
 	for reg in range(number_of_users):
 		user_data = random_data(user=True)
 		response = request_maker(url=register_url, data=user_data, method='post')
@@ -38,6 +38,9 @@ def register_users(number_of_users):
 
 
 def login_users():
+	"""
+		Method for login registered users
+	"""
 	for user, data in users_credentials.items():
 		data = {
 			'username': data.get('username'),
@@ -52,6 +55,10 @@ def login_users():
 
 
 def user_post_create(max_posts_per_user):
+	"""
+		Method for register users with random data
+		:param max_posts_per_user: maximal number of post witch user need create
+	"""
 	for data in login_credentials.values():
 		post_data = random_data(post=True)
 		headers = {'Authorization': data.get('token')}
@@ -64,6 +71,10 @@ def user_post_create(max_posts_per_user):
 
 
 def user_post_like(max_likes_per_user):
+	"""
+		Method for making likes to the posts, made by user
+		:param max_likes_per_user: maximal number of likes witch user need to make
+	"""
 	if max_likes_per_user <= len(posts):
 		for user_data in login_credentials.values():
 			random_likes_action_count = random.randint(1, max_likes_per_user)
